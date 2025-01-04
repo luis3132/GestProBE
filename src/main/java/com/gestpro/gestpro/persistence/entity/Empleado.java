@@ -3,6 +3,7 @@ package com.gestpro.gestpro.persistence.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gestpro.gestpro.constants.EstadoEmpleado;
 import com.gestpro.gestpro.persistence.entity.roles.RolEmp;
@@ -39,6 +40,7 @@ public class Empleado {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario", referencedColumnName = "cedula")
     @JsonBackReference("usuario-empleado")
+    @JsonIgnoreProperties("empleos")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.EAGER)

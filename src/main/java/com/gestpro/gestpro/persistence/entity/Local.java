@@ -48,4 +48,8 @@ public class Local {
     @JsonIgnoreProperties("local")
     private List<Empleado> empleados;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "local")
+    @JsonManagedReference("local-unidad")
+    private List<Unidad> unidades;
+
 }

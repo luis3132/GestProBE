@@ -57,7 +57,7 @@ public class Usuario {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
     @JsonManagedReference("usuario-empleado")
     @JsonIgnoreProperties("usuario")
-    private List<Empleado> empleados;
+    private List<Empleado> empleos;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
     private List<Empresa> empresas;

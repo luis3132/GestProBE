@@ -1,4 +1,4 @@
-package com.gestpro.gestpro.persistence.entity;
+package com.gestpro.gestpro.persistence.entity.categoria;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,19 +9,20 @@ import lombok.NoArgsConstructor;
 
 /**
  * 
- * @author Luis Andres Gonzalez Corzo
+ * @autor Luis Andres Gonzalez Corzo
  */
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "planes")
-public class Planes {
+@Table(name = "categoria")
+public class Categoria {
     
     @Id
-    private Integer id;
-    private String nombre;
-    private Integer precio;
-    private String descripcion;
+    private String id;
+    private String empresa;
+    private String categoria;
+    private String subcategoria;
+
 }

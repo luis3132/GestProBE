@@ -32,6 +32,5 @@ public class RolEmp {
     @ManyToOne
     @MapsId("rol")
     @JoinColumn(name = "rol", referencedColumnName = "id")
-    @JsonBackReference("rol-empleado")
     private Roles rol;
 }

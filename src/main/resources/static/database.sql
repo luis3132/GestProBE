@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS venta (
   `cliente` varchar(500) NOT NULL,
   `pagacon` varchar(500) NOT NULL,
   `cambio` varchar(500),
-  `metodo_de_pago` enum('Efectivo', 'Tarjeta debito/credito', 'Transferencia') NOT NULL
+  `metodo_de_pago` enum('Efectivo', 'TarjetaDebito', 'TarjetaCredito', 'Transferencia') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS promocion (
@@ -15,14 +15,15 @@ CREATE TABLE IF NOT EXISTS promocion (
   `articulo` varchar(30),
   `fecha_inicio` timestamp NOT NULL,
   `fecha_final` timestamp NOT NULL,
-  `promocion` int NOT NULL
+  `promocion` int NOT NULL,
+  `descripcion` varchar(500)
 );
 
 CREATE TABLE IF NOT EXISTS unidad (
   `sku` varchar(50) NOT NULL PRIMARY KEY,
   `nombre` varchar(500) NOT NULL,
   `descripcion` varchar(500),
-  `precio_detal` varchar(500) NOT NULL,
+  `precio_detal` bigint NOT NULL,
   `precio_mayorista` bigint,
   `articulo` varchar(500) NOT NULL,
   `local` varchar(500) NOT NULL,
@@ -37,6 +38,14 @@ CREATE TABLE IF NOT EXISTS categoria (
   `subcategoria` varchar(500)
 );
 
+CREATE TABLE IF NOT EXISTS `vigencia_plan` (
+	`id` varchar(30) NOT NULL PRIMARY KEY,
+	`empresa` varchar(20) NOT NULL,
+	`plan` int NOT NULL,
+	`fecha_compra` timestamp NOT NULL,
+	`fecha_finalizacion` timestamp NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS roles (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `rol` varchar(30) NOT NULL
@@ -45,7 +54,7 @@ CREATE TABLE IF NOT EXISTS roles (
 CREATE TABLE IF NOT EXISTS articulo (
   `id` varchar(30) NOT NULL PRIMARY KEY,
   `nombre` varchar(500) NOT NULL,
-  `descripcion` bigint NOT NULL,
+  `descripcion` varchar(500),
   `impuesto` int,
   `punto_reorden` int,
   `empresa` varchar(20) NOT NULL,
@@ -56,7 +65,7 @@ CREATE TABLE IF NOT EXISTS articulo (
 CREATE TABLE IF NOT EXISTS `vent_unid` (
   `unidad` varchar(50) NOT NULL,
   `venta` varchar(50) NOT NULL,
-  `precio_final` varchar(500) NOT NULL,
+  `precio_final` bigint NOT NULL,
   PRIMARY KEY (`unidad`, `venta`)
 );
 
@@ -77,7 +86,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   `cedula` varchar(10) NOT NULL PRIMARY KEY,
   `nombres` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL,
-  `nombre_usuario` varchar(10) NOT NULL,
+  `nombre_usuario` varchar(10) NOT NULL UNIQUE,
   `email` varchar(100) NOT NULL,
   `contrasena` varchar(500) NOT NULL,
   `telefono` varchar(10) NOT NULL,
@@ -104,7 +113,6 @@ CREATE TABLE IF NOT EXISTS empresa (
   `dueno` varchar(10) NOT NULL,
   `direccion` varchar(500) NOT NULL,
   `telefono` varchar(20) NOT NULL,
-  `nivel_subscripcion` int NOT NULL,
   `ciudad` varchar(20) NOT NULL,
   `departamento` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -122,6 +130,7 @@ CREATE TABLE IF NOT EXISTS cliente (
   `mayorista` BOOL NOT NULL,
   `fecha_creacion` timestamp NOT NULL,
   `estado` enum('ACTIVO', 'INACTIVO') NOT NULL,
+  `email` varchar(100),
   PRIMARY KEY (`cedula`,`empresa`)
 );
 
@@ -150,7 +159,9 @@ ALTER TABLE empleado ADD CONSTRAINT empleado_local_fk FOREIGN KEY (`local`) REFE
 ALTER TABLE empleado ADD CONSTRAINT empleado_usuario_fk FOREIGN KEY (`usuario`) REFERENCES usuario (`cedula`);
 
 ALTER TABLE empresa ADD CONSTRAINT empresa_dueno_fk FOREIGN KEY (`dueno`) REFERENCES usuario (`cedula`);
-ALTER TABLE empresa ADD CONSTRAINT empresa_nivel_subscripcion_fk FOREIGN KEY (`nivel_subscripcion`) REFERENCES planes (`id`);
+
+ALTER TABLE `vigencia_plan` ADD CONSTRAINT vigencia_plan_empresa_fk FOREIGN KEY (`empresa`) REFERENCES empresa (`nit`);
+ALTER TABLE `vigencia_plan` ADD CONSTRAINT vigencia_plan_planes_fk FOREIGN KEY (`plan`) REFERENCES planes (`id`);
 
 ALTER TABLE `local` ADD CONSTRAINT local_empresa_padre_fk FOREIGN KEY (`empresa_padre`) REFERENCES empresa (`nit`);
 
