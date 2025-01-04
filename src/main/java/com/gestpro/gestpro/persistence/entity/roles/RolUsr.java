@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class RolUsr {
     
     @EmbeddedId
-    private RolUstPK id;
+    private RolUsrPK id;
 
     @ManyToOne
     @MapsId("usuario")
