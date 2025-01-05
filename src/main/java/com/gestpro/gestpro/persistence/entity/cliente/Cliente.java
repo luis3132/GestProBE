@@ -9,11 +9,11 @@ import com.gestpro.gestpro.constants.EstadoCliente;
 import com.gestpro.gestpro.persistence.entity.venta.Venta;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -30,15 +30,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "cliente")
+@IdClass(ClientePK.class)
 public class Cliente {
     
-    @EmbeddedId
-    private ClientePK id;
-
-    @MapsId("cedula")
+    @Id
     private String cedula;
 
-    @MapsId("empresa")
+    @Id
     private String empresa;
 
     private String nombre;

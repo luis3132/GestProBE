@@ -1,8 +1,10 @@
 CREATE TABLE IF NOT EXISTS venta (
   `id` varchar(50) NOT NULL PRIMARY KEY,
   `fecha_venta` timestamp NOT NULL,
-  `cliente` varchar(500) NOT NULL,
-  `pagacon` varchar(500) NOT NULL,
+  `cliente` varchar(10) NOT NULL,
+  `empresa` varchar(20) NOT NULL,
+  `pagacon` varchar(50) NOT NULL,
+  `usuario` varchar(10) NOT NULL,
   `cambio` varchar(500),
   `metodo_de_pago` enum('Efectivo', 'TarjetaDebito', 'TarjetaCredito', 'Transferencia') NOT NULL
 );
@@ -79,6 +81,8 @@ CREATE TABLE IF NOT EXISTS empleado (
   `id` varchar(60) NOT NULL PRIMARY KEY,
   `usuario` varchar(10) NOT NULL,
   `local` varchar(50) NOT NULL,
+  `fecha_contratado` timestamp NOT NULL,
+  `fecha_despedido` timestamp,
   `estado` enum('ACTIVO', 'INACTIVO') NOT NULL
 );
 
@@ -150,8 +154,8 @@ CREATE TABLE IF NOT EXISTS planes (
   `descripcion` varchar(500) NOT NULL
 );
 
-ALTER TABLE `arti_cate` ADD CONSTRAINT `arti-cate_articulo_fk` FOREIGN KEY (`articulo`) REFERENCES articulo (`id`);
-ALTER TABLE `arti_cate` ADD CONSTRAINT `arti-cate_categoria_fk` FOREIGN KEY (`categoria`) REFERENCES categoria (`id`);
+ALTER TABLE `arti_cate` ADD CONSTRAINT `arti-cate_articulo_fk` FOREIGN KEY (`articulo`) REFERENCES articulo (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `arti_cate` ADD CONSTRAINT `arti-cate_categoria_fk` FOREIGN KEY (`categoria`) REFERENCES categoria (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE articulo ADD CONSTRAINT articulo_empresa_fk FOREIGN KEY (`empresa`) REFERENCES empresa (`nit`);
 
@@ -178,3 +182,4 @@ ALTER TABLE `vent_unid` ADD CONSTRAINT `vent-unid_unidad_fk` FOREIGN KEY (`unida
 ALTER TABLE `vent_unid` ADD CONSTRAINT `vent-unid_venta_fk` FOREIGN KEY (`venta`) REFERENCES venta (`id`);
 
 ALTER TABLE venta ADD CONSTRAINT venta_cliente_fk FOREIGN KEY (`cliente`) REFERENCES cliente (`cedula`);
+ALTER TABLE venta ADD CONSTRAINT venta_usuario_fk FOREIGN KEY (`usuario`) REFERENCES usuario (`cedula`);

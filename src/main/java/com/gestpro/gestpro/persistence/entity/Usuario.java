@@ -59,7 +59,7 @@ public class Usuario {
     @JsonIgnoreProperties("usuario")
     private List<Empleado> empleos;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dueno")
     private List<Empresa> empresas;
 
 }

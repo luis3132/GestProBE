@@ -9,6 +9,7 @@ import com.gestpro.gestpro.constants.EstadoEmpleado;
 import com.gestpro.gestpro.persistence.entity.roles.RolEmp;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -47,6 +48,12 @@ public class Empleado {
     @JoinColumn(name = "local", referencedColumnName = "id")
     @JsonBackReference("local-empleado")
     private Local local;
+
+    @Column(name = "fehca_contratado", nullable = false)
+    private String fechaContratado;
+
+    @Column(name = "fecha_despedido")
+    private String fechaDespedido;
 
     @Enumerated(EnumType.STRING)
     private EstadoEmpleado estado;
