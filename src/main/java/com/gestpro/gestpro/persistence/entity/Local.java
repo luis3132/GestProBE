@@ -38,10 +38,10 @@ public class Local {
     private String telefono;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "empresa", referencedColumnName = "nit")
+    @JoinColumn(name = "empresa_padre", referencedColumnName = "nit")
     @JsonBackReference("empresa-local")
     @JsonIgnoreProperties("locales")
-    private Empresa empresa;
+    private Empresa empresaPadre;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "local")
     @JsonManagedReference("local-empleado")

@@ -1,5 +1,6 @@
 package com.gestpro.gestpro.persistence.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -50,10 +51,10 @@ public class Empleado {
     private Local local;
 
     @Column(name = "fehca_contratado", nullable = false)
-    private String fechaContratado;
+    private Date fechaContratado;
 
     @Column(name = "fecha_despedido")
-    private String fechaDespedido;
+    private Date fechaDespedido;
 
     @Enumerated(EnumType.STRING)
     private EstadoEmpleado estado;

@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gestpro.gestpro.constants.EstadoEmpresa;
+import com.gestpro.gestpro.persistence.entity.planes.VigenciaPlan;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,9 +45,9 @@ public class Empresa {
     @Column(name = "estado", nullable = false)
     private EstadoEmpresa estado;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaPadre")
     @JsonManagedReference("empresa-local")
-    @JsonIgnoreProperties("empresa")
+    @JsonIgnoreProperties("empresaPadre")
     private List<Local> locales;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
@@ -54,9 +55,9 @@ public class Empresa {
     @JsonIgnoreProperties("empresa")
     private List<Articulo> articulos;
 
-    // @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
-    // @JsonManagedReference("empresa-plan")
-    // @JsonIgnoreProperties("empresa")
-    // private List<VigenciaPlan> vigenciasPlan;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
+    @JsonManagedReference("empresa-plan")
+    @JsonIgnoreProperties("empresa")
+    private List<VigenciaPlan> vigenciasPlan;
 
 }

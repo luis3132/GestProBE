@@ -1,5 +1,7 @@
 package com.gestpro.gestpro.persistence.entity.venta;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gestpro.gestpro.constants.MetodoPago;
@@ -36,7 +38,7 @@ public class Venta {
     private String id;
 
     @Column(name = "fecha_venta", nullable = false)
-    private String fechaVenta;
+    private Date fechaVenta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({

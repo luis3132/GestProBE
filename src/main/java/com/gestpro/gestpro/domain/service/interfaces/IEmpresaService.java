@@ -1,6 +1,7 @@
 package com.gestpro.gestpro.domain.service.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.gestpro.gestpro.persistence.entity.Empresa;
 
@@ -11,7 +12,7 @@ import com.gestpro.gestpro.persistence.entity.Empresa;
 
 public interface IEmpresaService {
     public List<Empresa> findAll();
-    public Empresa findByNIT(String nit);
+    public Optional<Empresa> findByNIT(String nit);
     public Empresa createEmpresa(Empresa empresa);
     public Empresa updateEmpresa(Empresa empresa);
     public Boolean deleteEmpresa(String nit);

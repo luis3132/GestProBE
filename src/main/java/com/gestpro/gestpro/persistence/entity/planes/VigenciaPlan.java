@@ -1,9 +1,12 @@
 package com.gestpro.gestpro.persistence.entity.planes;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gestpro.gestpro.persistence.entity.Empresa;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -39,5 +42,10 @@ public class VigenciaPlan {
     @JoinColumn(name = "planes", referencedColumnName = "id")
     private Planes plan;
     
-    private String fechaInicio;
+    @Column(name = "fecha_compra")
+    private Date fechaCompra;
+
+    @Column(name = "fecha_finalizacion")
+    private Date fechaFinalizacion;
+
 }

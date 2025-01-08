@@ -36,7 +36,7 @@ public class Usuario {
     private String nombres;
     private String apellidos;
 
-    @Column(name = "nombre_usuario")
+    @Column(name = "nombre_usuario", unique = true)
     private String nombreUsuario;
 
     private String email;
