@@ -1,5 +1,7 @@
 package com.gestpro.gestpro.domain.service.interfaces.roles;
 
+import java.util.List;
+
 import com.gestpro.gestpro.domain.dto.roles.RolUsrNuevoDTO;
 import com.gestpro.gestpro.persistence.entity.roles.RolUsr;
 import com.gestpro.gestpro.persistence.entity.roles.RolUsrPK;
@@ -10,6 +12,6 @@ import com.gestpro.gestpro.persistence.entity.roles.RolUsrPK;
  */
 
 public interface IRolUsrService {
-    public RolUsr guardarRolUsr(RolUsrNuevoDTO rolUsr);
+    public List<RolUsr> guardarRolUsr(List<RolUsrNuevoDTO> rolUsr);
     public Boolean eliminarRolUsr(RolUsrPK rolUsr);
 }

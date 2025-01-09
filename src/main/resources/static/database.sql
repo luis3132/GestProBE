@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `vigencia_plan` (
 
 CREATE TABLE IF NOT EXISTS roles (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `rol` varchar(30) NOT NULL
+  `roles` varchar(30) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS articulo (
@@ -101,14 +101,14 @@ CREATE TABLE IF NOT EXISTS usuario (
 
 CREATE TABLE IF NOT EXISTS `rol_emp` (
   `empleado` varchar(60) NOT NULL,
-  `rol` int NOT NULL,
-  PRIMARY KEY (`empleado`, `rol`)
+  `roles` int NOT NULL,
+  PRIMARY KEY (`empleado`, `roles`)
 );
 
 CREATE TABLE IF NOT EXISTS `rol_usr` (
   `usuario` varchar(10) NOT NULL,
-  `rol` int NOT NULL,
-  PRIMARY KEY (`usuario`, `rol`)
+  `roles` int NOT NULL,
+  PRIMARY KEY (`usuario`, `roles`)
 );
 
 CREATE TABLE IF NOT EXISTS empresa (
@@ -170,10 +170,10 @@ ALTER TABLE `vigencia_plan` ADD CONSTRAINT vigencia_plan_planes_fk FOREIGN KEY (
 ALTER TABLE `local` ADD CONSTRAINT local_empresa_padre_fk FOREIGN KEY (`empresa_padre`) REFERENCES empresa (`nit`);
 
 ALTER TABLE `rol_emp` ADD CONSTRAINT `rol_emp_empleado_fk` FOREIGN KEY (`empleado`) REFERENCES empleado (`id`);
-ALTER TABLE `rol_emp` ADD CONSTRAINT `rol_emp_roles_fk` FOREIGN KEY (`rol`) REFERENCES roles (`id`);
+ALTER TABLE `rol_emp` ADD CONSTRAINT `rol_emp_roles_fk` FOREIGN KEY (`roles`) REFERENCES roles (`id`);
 
 ALTER TABLE `rol_usr` ADD CONSTRAINT `rol_usr_usuario_fk` FOREIGN KEY (`usuario`) REFERENCES usuario (`cedula`);
-ALTER TABLE `rol_usr` ADD CONSTRAINT `rol_usr_roles_fk` FOREIGN KEY (`rol`) REFERENCES roles (`id`);
+ALTER TABLE `rol_usr` ADD CONSTRAINT `rol_usr_roles_fk` FOREIGN KEY (`roles`) REFERENCES roles (`id`);
 
 ALTER TABLE unidad ADD CONSTRAINT unidad_articulo_fk FOREIGN KEY (`articulo`) REFERENCES articulo (`id`);
 ALTER TABLE unidad ADD CONSTRAINT unidad_local_fk FOREIGN KEY (`local`) REFERENCES local (`id`);
@@ -181,5 +181,5 @@ ALTER TABLE unidad ADD CONSTRAINT unidad_local_fk FOREIGN KEY (`local`) REFERENC
 ALTER TABLE `vent_unid` ADD CONSTRAINT `vent-unid_unidad_fk` FOREIGN KEY (`unidad`) REFERENCES unidad (`sku`);
 ALTER TABLE `vent_unid` ADD CONSTRAINT `vent-unid_venta_fk` FOREIGN KEY (`venta`) REFERENCES venta (`id`);
 
-ALTER TABLE venta ADD CONSTRAINT venta_cliente_fk FOREIGN KEY (`cliente`) REFERENCES cliente (`cedula`);
+ALTER TABLE venta ADD CONSTRAINT venta_cliente_empresa_fk FOREIGN KEY (`cliente`, `empresa`) REFERENCES cliente (`cedula`, `empresa`);
 ALTER TABLE venta ADD CONSTRAINT venta_usuario_fk FOREIGN KEY (`usuario`) REFERENCES usuario (`cedula`);

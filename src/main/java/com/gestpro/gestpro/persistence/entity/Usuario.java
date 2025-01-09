@@ -42,6 +42,7 @@ public class Usuario {
     private String email;
     private String contrasena;
     private String direccion;
+    private String telefono;
 
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;

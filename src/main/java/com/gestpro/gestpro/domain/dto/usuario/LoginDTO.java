@@ -1,4 +1,4 @@
-package com.gestpro.gestpro.domain.dto.roles;
+package com.gestpro.gestpro.domain.dto.usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RolEmpNuevoDTO {
-    private String empleado;
-    private Integer roles;
+public class LoginDTO {
+    private String nombreUsuario;
+    private String contrasena;
 }

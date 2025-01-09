@@ -30,7 +30,7 @@ public class RolUsr {
     private Usuario usuario;
 
     @ManyToOne
-    @MapsId("rol")
+    @MapsId("roles")
     @JoinColumn(name = "roles", referencedColumnName = "id")
-    private Roles rol;
+    private Roles roles;
 }

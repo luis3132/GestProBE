@@ -1,6 +1,11 @@
 package com.gestpro.gestpro.domain.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.gestpro.gestpro.domain.dto.roles.RolEmpNuevoDTO;
@@ -9,6 +14,7 @@ import com.gestpro.gestpro.domain.dto.roles.RolesNuevoDTO;
 import com.gestpro.gestpro.domain.service.interfaces.roles.IRolEmpService;
 import com.gestpro.gestpro.domain.service.interfaces.roles.IRolUsrService;
 import com.gestpro.gestpro.domain.service.interfaces.roles.IRolesService;
+import com.gestpro.gestpro.persistence.entity.Usuario;
 import com.gestpro.gestpro.persistence.entity.roles.RolEmp;
 import com.gestpro.gestpro.persistence.entity.roles.RolEmpPK;
 import com.gestpro.gestpro.persistence.entity.roles.RolUsr;
@@ -18,12 +24,15 @@ import com.gestpro.gestpro.persistence.repository.roles.RolEmpRepository;
 import com.gestpro.gestpro.persistence.repository.roles.RolUsrRepository;
 import com.gestpro.gestpro.persistence.repository.roles.RolesRepository;
 
+import jakarta.transaction.Transactional;
+
 /**
  * 
  * @autor Luis Andres Gonzalez Corzo
  */
 
 @Service
+@Transactional
 public class RolesService implements IRolesService, IRolUsrService, IRolEmpService {
 
     @Autowired
@@ -35,7 +44,16 @@ public class RolesService implements IRolesService, IRolUsrService, IRolEmpServi
     @Autowired
     private RolEmpRepository rolEmpRepository;
 
+    @Autowired
+    @Lazy
+    private UsuarioService usuarioService;
+
     // ROLES
+
+    @Override
+    public Optional<Roles> findById(Integer id) {
+        return rolesRepository.findById(id);
+    }
 
     @Override
     public Roles guardarRol(RolesNuevoDTO rol) {
@@ -45,8 +63,12 @@ public class RolesService implements IRolesService, IRolUsrService, IRolEmpServi
     // ROL USUARIO
 
     @Override
-    public RolUsr guardarRolUsr(RolUsrNuevoDTO rolUsr) {
-        return rolUsrRepository.save(convertRolUsrDTOToEntity(rolUsr));
+    public List<RolUsr> guardarRolUsr(List<RolUsrNuevoDTO> rolUsr) {
+        List<RolUsr> rolUsrEntity = new ArrayList<>();
+        for (RolUsrNuevoDTO rolUsrNuevoDTO : rolUsr) {
+            rolUsrEntity.add(convertRolUsrDTOToEntity(rolUsrNuevoDTO));
+        }
+        return rolUsrRepository.saveAll(rolUsrEntity);
     }
 
     @Override
@@ -78,18 +100,24 @@ public class RolesService implements IRolesService, IRolUsrService, IRolEmpServi
 
     private Roles convertRolesDTOToEntity(RolesNuevoDTO rol) {
         Roles roles = new Roles();
-        roles.setRol(rol.getRol());
+        roles.setRoles(rol.getRoles());
         return roles;
     }
 
     private RolUsr convertRolUsrDTOToEntity(RolUsrNuevoDTO rolUsr) {
         RolUsr rolUsrEntity = new RolUsr();
         RolUsrPK rolUsrPK = new RolUsrPK();
+        Optional<Usuario> usuario = usuarioService.findByCedula(rolUsr.getUsuario());
+        Optional<Roles> roles = findById(rolUsr.getRoles());
 
-        rolUsrPK.setRol(rolUsr.getRol());
-        rolUsrPK.setUsuario(rolUsr.getUsuario());
+        if (usuario.isPresent() && roles.isPresent()) {
+            rolUsrPK.setRoles(rolUsr.getRoles());
+            rolUsrPK.setUsuario(rolUsr.getUsuario());
 
-        rolUsrEntity.setId(rolUsrPK);
+            rolUsrEntity.setId(rolUsrPK);
+            rolUsrEntity.setRoles(roles.get());
+            rolUsrEntity.setUsuario(usuario.get());
+        }
 
         return rolUsrEntity;
     }
@@ -98,7 +126,7 @@ public class RolesService implements IRolesService, IRolUsrService, IRolEmpServi
         RolEmp rolEmpEntity = new RolEmp();
         RolEmpPK rolEmpPK = new RolEmpPK();
 
-        rolEmpPK.setRol(rolEmp.getRol());
+        rolEmpPK.setRoles(rolEmp.getRoles());
         rolEmpPK.setEmpleado(rolEmp.getEmpleado());
 
         rolEmpEntity.setId(rolEmpPK);

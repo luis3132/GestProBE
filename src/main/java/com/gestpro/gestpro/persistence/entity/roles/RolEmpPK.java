@@ -16,5 +16,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RolEmpPK {
     private String empleado;
-    private Integer rol;
+    private Integer roles;
 }

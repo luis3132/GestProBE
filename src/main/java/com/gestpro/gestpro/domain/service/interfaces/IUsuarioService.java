@@ -2,6 +2,9 @@ package com.gestpro.gestpro.domain.service.interfaces;
 
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.gestpro.gestpro.domain.dto.usuario.UsuarioRegisterDTO;
 import com.gestpro.gestpro.persistence.entity.Usuario;
 
 /**
@@ -10,7 +13,9 @@ import com.gestpro.gestpro.persistence.entity.Usuario;
  */
 
 public interface IUsuarioService {
-    public Usuario createUsuario(Usuario usuario);
+    public Optional<Usuario> findbyUsername(String username);
+    public UserDetails loadUserByUsername(String username);
+    public Usuario createUsuario(UsuarioRegisterDTO usuario);
     public Usuario updateUsuario(Usuario usuario);
     public Boolean deleteUsuario(String cedula);
     public Optional<Usuario> findByCedula(String cedula);

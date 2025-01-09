@@ -50,7 +50,7 @@ public class Empleado {
     @JsonBackReference("local-empleado")
     private Local local;
 
-    @Column(name = "fehca_contratado", nullable = false)
+    @Column(name = "fecha_contratado", nullable = false)
     private Date fechaContratado;
 
     @Column(name = "fecha_despedido")
