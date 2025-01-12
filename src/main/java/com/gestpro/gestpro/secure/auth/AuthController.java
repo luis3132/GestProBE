@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gestpro.gestpro.domain.dto.usuario.LoginDTO;
 import com.gestpro.gestpro.domain.dto.usuario.UsuarioLoginDTO;
 import com.gestpro.gestpro.domain.dto.usuario.UsuarioRegisterDTO;
 import com.gestpro.gestpro.secure.jwt.JwtService;
@@ -44,9 +43,9 @@ public class AuthController {
     }
 
     @PostMapping("/verify")
-    public LoginDTO verify(@RequestBody AuthResponse authResponse){
-        LoginDTO loginDTO = new LoginDTO(jwtService.getClaim(authResponse.getToken(), Claims::getSubject), "Encrypted");
-        return loginDTO;
+    public ResponseEntity<UsuarioLoginDTO> verify(@RequestBody AuthResponse authResponse){
+        UsuarioLoginDTO loginDTO = new UsuarioLoginDTO(jwtService.getClaim(authResponse.getToken(), Claims::getSubject), "Encrypted");
+        return ResponseEntity.ok(loginDTO);
     }
 
 

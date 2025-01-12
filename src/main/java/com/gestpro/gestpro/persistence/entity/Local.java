@@ -36,6 +36,7 @@ public class Local {
     private String nombre;
     private String direccion;
     private String telefono;
+    private String ciudad;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empresa_padre", referencedColumnName = "nit")

@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `local` (
   `id` varchar(50) NOT NULL PRIMARY KEY,
   `nombre` varchar(50) NOT NULL,
   `direccion` varchar(500) NOT NULL,
+  `ciudad` varchar(20) NOT NULL,
   `telefono` varchar(20),
   `estado` enum('ACTIVO', 'INACTIVO') NOT NULL,
   `empresa_padre` varchar(20) NOT NULL
