@@ -3,8 +3,10 @@ package com.gestpro.gestpro.domain.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import com.gestpro.gestpro.constants.EstadoLocal;
 import com.gestpro.gestpro.domain.dto.local.LocalNuevoDTO;
 import com.gestpro.gestpro.domain.service.interfaces.ILocalService;
 import com.gestpro.gestpro.persistence.entity.Empresa;
@@ -23,6 +25,7 @@ public class LocalService implements ILocalService {
     private LocalRepository localRepository;
 
     @Autowired
+    @Lazy
     private EmpresaService empresaService;
 
     @Override
@@ -54,12 +57,16 @@ public class LocalService implements ILocalService {
     private Local convertDTOToEntity(LocalNuevoDTO localNuevo) {
         Local local = new Local();
         Optional<Empresa> empresa = empresaService.findByNIT(localNuevo.getEmpresaPadre());
+        EstadoLocal estado = EstadoLocal.valueOf(localNuevo.getEstado());
 
         if (empresa.isPresent()) {
+            local.setId(localNuevo.getId());
             local.setNombre(localNuevo.getNombre());
             local.setDireccion(localNuevo.getDireccion());
             local.setTelefono(localNuevo.getTelefono());
             local.setEmpresaPadre(empresa.get());
+            local.setCiudad(localNuevo.getCiudad());
+            local.setEstado(estado);
         }
 
         return local;

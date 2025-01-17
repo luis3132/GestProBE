@@ -5,9 +5,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.gestpro.gestpro.constants.EstadoLocal;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -37,6 +40,9 @@ public class Local {
     private String direccion;
     private String telefono;
     private String ciudad;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoLocal estado;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empresa_padre", referencedColumnName = "nit")

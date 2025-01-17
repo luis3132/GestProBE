@@ -184,3 +184,6 @@ ALTER TABLE `vent_unid` ADD CONSTRAINT `vent-unid_venta_fk` FOREIGN KEY (`venta`
 
 ALTER TABLE venta ADD CONSTRAINT venta_cliente_empresa_fk FOREIGN KEY (`cliente`, `empresa`) REFERENCES cliente (`cedula`, `empresa`);
 ALTER TABLE venta ADD CONSTRAINT venta_usuario_fk FOREIGN KEY (`usuario`) REFERENCES usuario (`cedula`);
+
+INSERT INTO gestpro.roles (roles) VALUES('USER');
+INSERT INTO gestpro.roles (roles) VALUES('ADMIN');

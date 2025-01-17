@@ -51,6 +51,10 @@ public class AuthService {
         usuarioLoginDTO.setContrasena(passwordEncoder.encode(usuarioLoginDTO.getContrasena()));
         Usuario usuario = usuarioService.createUsuario(usuarioLoginDTO);
 
+        if (usuario == null) {
+            return null;
+        }
+
         UserDetails userDetails = usuarioService.loadUserByUsername(usuario.getNombreUsuario());
 
         return AuthResponse.builder()

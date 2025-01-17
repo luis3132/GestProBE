@@ -80,11 +80,15 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario createUsuario(UsuarioRegisterDTO usuario) {
-        usuarioRepository.save(toUsuario(usuario));
-        usuario.getRoles().forEach(rol -> {
-            rol.setUsuario(usuario.getCedula());
-        });
-        rolesService.guardarRolUsr(usuario.getRoles());
+        if (usuarioRepository.existsById(usuario.getCedula()) || findbyUsername(usuario.getNombreUsuario()).isPresent()) {
+            return null;
+        } else {
+            usuarioRepository.save(toUsuario(usuario));
+            usuario.getRoles().forEach(rol -> {
+                rol.setUsuario(usuario.getCedula());
+            });
+            rolesService.guardarRolUsr(usuario.getRoles());
+        }
 
         return findByCedula(usuario.getCedula()).get();
     }

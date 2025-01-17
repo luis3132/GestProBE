@@ -2,8 +2,8 @@ package com.gestpro.gestpro.persistence.entity.planes;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gestpro.gestpro.persistence.entity.Empresa;
 
 import jakarta.persistence.Column;
@@ -34,12 +34,12 @@ public class VigenciaPlan {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa", referencedColumnName = "nit")
-    @JsonManagedReference("empresa-plan")
+    @JsonBackReference("empresa-plan")
     @JsonIgnoreProperties("vigenciasPlan")
     private Empresa empresa;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "planes", referencedColumnName = "id")
+    @JoinColumn(name = "plan", referencedColumnName = "id")
     private Planes plan;
     
     @Column(name = "fecha_compra")

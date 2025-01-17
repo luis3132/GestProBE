@@ -18,4 +18,6 @@ public class LocalNuevoDTO {
     private String direccion;
     private String telefono;
     private String empresaPadre;
+    private String ciudad;
+    private String estado;
 }
