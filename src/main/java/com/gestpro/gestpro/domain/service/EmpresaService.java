@@ -40,6 +40,11 @@ public class EmpresaService implements IEmpresaService {
     }
 
     @Override
+    public List<Empresa> findByUser(String user) {
+        return empresaRepository.findByDueno(user);
+    }
+
+    @Override
     public Empresa createEmpresa(EmpresaNuevaDTO empresa) {
         if (findByNIT(empresa.getEmpresa().getNit()).isPresent()) {
             return null;

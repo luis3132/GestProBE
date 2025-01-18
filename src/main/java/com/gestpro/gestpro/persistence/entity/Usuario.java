@@ -55,12 +55,13 @@ public class Usuario {
     @JsonManagedReference("usuario-rol")
     private List<RolUsr> roles;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     @JsonManagedReference("usuario-empleado")
     @JsonIgnoreProperties("usuario")
     private List<Empleado> empleos;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dueno")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dueno")
+    @JsonIgnoreProperties(value = { "locales", "articulos", "vigenciasPlan" })
     private List<Empresa> empresas;
 
 }

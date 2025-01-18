@@ -14,6 +14,7 @@ import com.gestpro.gestpro.persistence.entity.Empresa;
 public interface IEmpresaService {
     public List<Empresa> findAll();
     public Optional<Empresa> findByNIT(String nit);
+    public List<Empresa> findByUser(String user);
     public Empresa createEmpresa(EmpresaNuevaDTO empresa);
     public Empresa updateEmpresa(Empresa empresa);
     public Boolean deleteEmpresa(String nit);
